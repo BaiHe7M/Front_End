@@ -1,7 +1,9 @@
 <template>
   <el-upload
     class="upload-demo"
-    action="/api/upload"
+    :action="uploadUrl"
+    :headers="headers"
+    :data="uploadData"
     :on-success="handleSuccess"
     :on-error="handleError"
     :before-upload="beforeUpload"
@@ -16,20 +18,36 @@
 </template>
 
 <script>
+import { getAuthToken } from '../api'
+
 export default {
-  name: 'FileUpload',  // 1. 添加多单词组件名
+  name: 'FileUpload',
+  data() {
+    const token = getAuthToken();
+    console.log('Authorization Token:', token); // 添加调试信息
+    return {
+      uploadUrl: '/api/contractFiles/upload',
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      uploadData: {
+        originalName: '' // 初始化 originalName
+      }
+    }
+  },
   methods: {
-    handleSuccess() {  // 2. 删除未使用的参数
+    handleSuccess() {
       this.$message.success('文件上传成功')
     },
-    handleError() {  // 3. 删除未使用的参数
+    handleError() {
       this.$message.error('文件上传失败')
     },
     beforeUpload(file) {
-      const isLt10M = file.size / 1024 / 1024 < 10  // 修改为 10MB
+      const isLt10M = file.size / 1024 / 1024 < 10
       if (!isLt10M) {
         this.$message.error('上传文件大小不能超过 10MB!')
       }
+      this.uploadData.originalName = file.name; // 设置 originalName 为文件名
       return isLt10M
     }
   }

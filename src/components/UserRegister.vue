@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'UserRegister',
   data() {
@@ -74,7 +76,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$axios.post('/api/register', this.registerForm)
+          axios.post('/api/user/register', this.registerForm)
             .then(() => {
               this.$message.success('注册成功！');
               this.$router.push('/login');

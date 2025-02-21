@@ -7,8 +7,10 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-  name: 'ReportView',  // 1. 添加多单词组件名
+  name: 'ReportView',
   data() {
     return {
       reportData: []
@@ -18,13 +20,17 @@ export default {
     this.fetchReport()
   },
   methods: {
-    async fetchReport() {  // 2. 使用 async/await 优化异步操作
+    async fetchReport() {
       try {
-        const { data } = await this.$axios.get('/api/report')
-        this.reportData = data
+        const { data } = await axios.get('/api/contractFiles/1/report', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        this.reportData = data;
       } catch (error) {
-        console.error('获取报告失败:', error)
-        this.$message.error('获取报告失败，请稍后重试')  // 3. 添加用户友好提示
+        console.error('获取报告失败:', error);
+        this.$message.error('获取报告失败，请稍后重试');
       }
     }
   }
@@ -32,7 +38,6 @@ export default {
 </script>
 
 <style scoped>
-/* 可以添加自定义样式 */
 .el-table {
   margin: 20px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);

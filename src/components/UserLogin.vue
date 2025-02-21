@@ -8,7 +8,6 @@
   >
     <h2 class="title">用户登录</h2>
 
-    <!-- 用户名和密码输入框 -->
     <el-form-item label="用户名" prop="username">
       <el-input v-model="loginForm.username"></el-input>
     </el-form-item>
@@ -25,6 +24,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'UserLogin',
   data() {
@@ -50,7 +51,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$axios.post('/api/login', this.loginForm)
+          axios.post('/api/user/login', this.loginForm)
             .then(res => {
               localStorage.setItem('token', res.data.token); // 存储 token
               this.$message.success('登录成功！');
