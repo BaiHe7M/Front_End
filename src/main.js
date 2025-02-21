@@ -11,6 +11,18 @@ Vue.use(ElementUI);
 // 将 axios 挂载到 Vue 原型
 Vue.prototype.$axios = axios;
 
+Vue.config.productionTip = false;
+
+// 确保未登录时重定向到登录页面
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = !!localStorage.getItem('token');
+  if (to.path !== '/login' && !isLoggedIn) {
+    next('/login');
+  } else {
+    next();
+  }
+});
+
 // 创建 Vue 实例（移除 store）
 new Vue({
   router,       // 保留路由

@@ -46,7 +46,7 @@ const routes = [
   },
   {
     path: '*', // 404 页面
-    redirect: '/dashboard' // 重定向到主页
+    redirect: '/login' // 重定向到登录页
   }
 ];
 

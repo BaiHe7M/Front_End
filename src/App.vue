@@ -1,26 +1,21 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <FileUpload />
   </div>
 </template>
 
 <script>
-import FileUpload from './components/FileUpload.vue'
-
 export default {
-  name: 'App',
-  components: {
-    FileUpload
-  }
-}
+  name: 'App'
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+/* 全局样式 */
+body {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
 }
 </style>

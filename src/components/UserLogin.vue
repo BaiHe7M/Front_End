@@ -9,11 +9,11 @@
     <h2 class="title">用户登录</h2>
 
     <el-form-item label="用户名" prop="username">
-      <el-input v-model="loginForm.username"></el-input>
+      <el-input v-model="loginForm.username" @mouseover="handleMouseOver" @mouseleave="handleMouseLeave"></el-input>
     </el-form-item>
 
     <el-form-item label="密码" prop="password">
-      <el-input type="password" v-model="loginForm.password"></el-input>
+      <el-input type="password" v-model="loginForm.password" @mouseover="handleMouseOver" @mouseleave="handleMouseLeave"></el-input>
     </el-form-item>
 
     <el-form-item>
@@ -45,10 +45,18 @@ export default {
     };
   },
   methods: {
+    handleMouseOver() {
+      console.log('Mouse over input field'); // 鼠标悬停在输入框上
+    },
+    handleMouseLeave() {
+      console.log('Mouse left input field'); // 鼠标离开输入框
+    },
     goToRegister() {
+      console.log('Go to register button clicked'); // 添加调试信息
       this.$router.push('/register');
     },
     submitForm(formName) {
+      console.log('Submit button clicked'); // 添加调试信息
       this.$refs[formName].validate(valid => {
         if (valid) {
           axios.post('/api/user/login', this.loginForm)

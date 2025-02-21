@@ -9,19 +9,19 @@
     <h2 class="title">用户注册</h2>
     
     <el-form-item label="用户名" prop="username">
-      <el-input v-model="registerForm.username"></el-input>
+      <el-input v-model="registerForm.username" @mouseover="handleMouseOver" @mouseleave="handleMouseLeave"></el-input>
     </el-form-item>
 
     <el-form-item label="密码" prop="password">
-      <el-input type="password" v-model="registerForm.password"></el-input>
+      <el-input type="password" v-model="registerForm.password" @mouseover="handleMouseOver" @mouseleave="handleMouseLeave"></el-input>
     </el-form-item>
 
     <el-form-item label="确认密码" prop="checkPassword">
-      <el-input type="password" v-model="registerForm.checkPassword"></el-input>
+      <el-input type="password" v-model="registerForm.checkPassword" @mouseover="handleMouseOver" @mouseleave="handleMouseLeave"></el-input>
     </el-form-item>
 
     <el-form-item label="邮箱" prop="email">
-      <el-input v-model="registerForm.email"></el-input>
+      <el-input v-model="registerForm.email" @mouseover="handleMouseOver" @mouseleave="handleMouseLeave"></el-input>
     </el-form-item>
 
     <el-form-item>
@@ -73,7 +73,14 @@ export default {
     };
   },
   methods: {
+    handleMouseOver() {
+      console.log('Mouse over input field'); // 鼠标悬停在输入框上
+    },
+    handleMouseLeave() {
+      console.log('Mouse left input field'); // 鼠标离开输入框
+    },
     submitForm(formName) {
+      console.log('Submit button clicked'); // 添加调试信息
       this.$refs[formName].validate(valid => {
         if (valid) {
           axios.post('/api/user/register', this.registerForm)
@@ -88,6 +95,7 @@ export default {
       });
     },
     goToLogin() {
+      console.log('Go to login button clicked'); // 添加调试信息
       this.$router.push('/login');
     }
   }

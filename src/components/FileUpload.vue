@@ -8,7 +8,7 @@
     :on-error="handleError"
     :before-upload="beforeUpload"
   >
-    <el-button type="primary">点击上传</el-button>
+    <el-button type="primary" @mouseover="handleMouseOver" @mouseleave="handleMouseLeave">点击上传</el-button>
     <template #tip>
       <div class="el-upload__tip">
         请上传小于 10MB 的文件
@@ -36,8 +36,14 @@ export default {
     }
   },
   methods: {
-    handleSuccess() {
-      this.$message.success('文件上传成功')
+    handleMouseOver() {
+      console.log('Mouse over upload button'); // 鼠标悬停在上传按钮上
+    },
+    handleMouseLeave() {
+      console.log('Mouse left upload button'); // 鼠标离开上传按钮
+    },
+    handleSuccess(response) {
+      this.$message.success('文件上传成功，ID: ' + response); // 显示文件上传成功信息
     },
     handleError() {
       this.$message.error('文件上传失败')
